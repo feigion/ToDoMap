@@ -4,3 +4,39 @@
   margin: 0;
   padding: 0;
 }
+
+#largemap {
+  height: 500px;
+  background-color: lightgray;
+}
+
+#smallmap {
+  height: 300px;
+  max-width: 576px;
+  background-color: lightgray;
+}
+
+#sidebar {
+  min-height: 200px;
+  max-height: 500px;
+  background-color: gray;
+}
+
+@media (max-width: 576px) {
+  #largemap {
+    display: none;
+  }
+  #header {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) {
+  .navbar {
+    display: none;
+  }
+  #header {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+}
