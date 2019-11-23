@@ -1,3 +1,30 @@
+h1{
+  text-align: center;
+  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
+  padding-top: 10px;
+}
+
+h3{
+  color: #3c9d9b;
+}
+.list-group-item{
+  background-color: #3c9d9b;
+}
+.list-group{
+    max-height: 360px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+  background-color: #394A6D;
+
+}
+#toDoList{
+  margin: 10px 10px 10px;      
+
+}
 #map{
   height: 500px;
   width: 50%;
@@ -11,9 +38,11 @@
 }
 
 #smallmap {
-  height: 300px;
+  height: 450px;
   max-width: 576px;
   background-color: lightgray;
+  margin-top: 50px;
+  margin: 50px 50px 20px;
 }
 
 #sidebar {
@@ -35,6 +64,7 @@
   .navbar {
     display: none;
   }
+
   #header {
     font-size: 30px;
     margin-bottom: 30px;
