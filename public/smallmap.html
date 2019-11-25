@@ -35,7 +35,7 @@
         </div>
     </nav>
     <div id="smallmap">
-        Small map
+
     </div>
     <div class="panel panel-primary" id="toDoList">
     <div class="panel-heading"><h3 class="panel-title">Result List</h3>
@@ -106,7 +106,22 @@
     }
 
 </script>
+<script type="text/javascript">
+  function initMap(){
+    var location = {lat: 45.5051, lng: -122.675};
+    var map = new google.maps.Map(document.getElementById("smallmap"), {
+      zoom: 4,
+      center: location
+    });
+    var marker = new google.maps.Marker({
+      position: location,
+      map: map
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript">
 
+</script>
 
 </body>
 </html>
