@@ -1,0 +1,91 @@
+h1{
+  text-align: center;
+  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
+  padding-top: 10px;
+}
+
+h3{
+  color: #3c9d9b;
+}
+.list-group-item{
+  background-color: #3c9d9b;
+}
+.list-group{
+    max-height: 360px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+body {
+  background-color: #394A6D;
+
+}
+
+form {
+/* width: 300px;
+height: 200px; */
+padding-left: 25%;
+padding-right: 25%;
+padding-top: 25%;
+
+}
+
+
+#toDoList{
+  margin: 10px 10px 10px;
+
+}
+#map{
+  height: 500px;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+}
+
+#largemap {
+  height: 500px;
+  background-color: lightgray;
+}
+
+#smallmap {
+  height: 450px;
+  max-width: 576px;
+  background-color: lightgray;
+  margin-top: 50px;
+  margin: 50px 50px 20px;
+}
+
+#sidebar {
+  min-height: 200px;
+  max-height: 500px;
+  background-color: gray;
+}
+
+@media (max-width: 576px) {
+  #largemap {
+    display: none;
+  }
+  #header {
+    display: none;
+  }
+
+}
+
+@media (min-width: 576px) {
+  .navbar {
+    display: none;
+  }
+
+  #header {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+
+  #addItem{
+  display: none;
+  }
+}
+
+
+/* navbar */
