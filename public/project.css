@@ -2,6 +2,8 @@ h1{
   text-align: center;
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   padding-top: 10px;
+  color: #fc5185;
+
 }
 
 h3{
@@ -28,9 +30,13 @@ height: 200px; */
 padding-left: 25%;
 padding-right: 25%;
 padding-top: 25%;
+color: #3fc1c9;
 
 }
 
+.form-group, .form-check{
+/* background-color: #3c9d9b;  */
+}
 
 #toDoList{
   margin: 10px 10px 10px;
@@ -86,6 +92,9 @@ padding-top: 25%;
   display: none;
   }
 }
-
+#titleAddItem{
+  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
+  color: #fc5185;
+}
 
 /* navbar */
