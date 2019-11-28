@@ -141,6 +141,16 @@
         }
       }
     ];
+    /**
+     * @param {String} HTML representing a single element
+     * @return {Element}
+     */
+    function htmlToElement(html) {
+        var template = document.createElement('template');
+        html = html.trim(); // Never return a text node of whitespace as the result
+        template.innerHTML = html;
+        return template.content.firstChild;
+    }
 
     function initMap() {
       var location = {
@@ -161,8 +171,9 @@
         addPinToMap(map, element.location.longitude, element.location.latitude);
         var name = element.text;
         var ul = document.getElementById("taskList");
-        var li = document.createElement('li');
-        var button = document.createElement('button');
+        //var li = document.createElement('li');
+        var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text +"</strong><br>Distance:</button></li>");
+        // document.createElement('button');
         // button.class = "btn btn-secondary btn-lg btn-block"
 
         //   var toDoFormat = "<button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>To Do Item</strong><br>
@@ -171,6 +182,7 @@
         //   /button> <
         //   /li>"
         // li.appendChild(document.createTextNode(toDoFormat));
+        //li.appendChild(button);
         ul.appendChild(li);
       });
     }
