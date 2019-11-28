@@ -45,52 +45,7 @@
     </div>
     <div class="panel-body">
       <ul class="list-group" id="taskList">
-        <!-- <li class="list-group-item">
-            <button onclick="confirmFunction()" class="btn btn-secondary btn-lg btn-block"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </button>
-            </li>
-            <li onclick="confirmFunction()" class="list-group-item btn btn-secondary btn-lg btn-block"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li> -->
+
       </ul>
     </div>
   </div>
@@ -103,7 +58,6 @@
       } else {
         // do nothing
       }
-
     }
   </script>
   <script type="text/javascript">
@@ -171,18 +125,7 @@
         addPinToMap(map, element.location.longitude, element.location.latitude);
         var name = element.text;
         var ul = document.getElementById("taskList");
-        //var li = document.createElement('li');
-        var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text +"</strong><br>Distance:</button></li>");
-        // document.createElement('button');
-        // button.class = "btn btn-secondary btn-lg btn-block"
-
-        //   var toDoFormat = "<button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>To Do Item</strong><br>
-        // Distance:
-        //   <
-        //   /button> <
-        //   /li>"
-        // li.appendChild(document.createTextNode(toDoFormat));
-        //li.appendChild(button);
+        var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text + "</strong><br>Distance:</button></li>");
         ul.appendChild(li);
       });
     }
