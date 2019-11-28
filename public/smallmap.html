@@ -1,127 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="project.css" rel="stylesheet" type="text/css">
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <title>Map</title>
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse" id="navbar-items">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item-active">
-                    <a href="smallmap.html">Map</a>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html">List</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div id="smallmap">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="project.css" rel="stylesheet" type="text/css">
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Map</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar-items">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item-active">
+          <a href="smallmap.html">Map</a>
+        </li>
+        <li class="nav-item">
+          <a href="index.html">List</a>
+        </li>
+      </ul>
     </div>
-    <div class="panel panel-primary" id="toDoList">
-    <div class="panel-heading"><h3 class="panel-title">Result List</h3>
+  </nav>
+  <div id="smallmap">
+
+  </div>
+  <div class="panel panel-primary" id="toDoList">
+    <div class="panel-heading">
+      <h3 class="panel-title">Result List</h3>
     </div>
     <div class="panel-body">
-        <ul class="list-group">
-            <li class="list-group-item">
-            <button onclick="confirmFunction()" class="btn btn-secondary btn-lg btn-block"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </button>
-            </li>
-            <li onclick="confirmFunction()" class="list-group-item btn btn-secondary btn-lg btn-block"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-            <li class="list-group-item"><strong>To Do Item</strong>
-              <br>
-              Distance:
-            </li>
-        </ul>
+      <ul class="list-group" id="taskList">
+
+      </ul>
     </div>
-</div>
+  </div>
 
-<script type="text/javascript">
-  function confirmFunction() {
+  <script type="text/javascript">
+    function confirmFunction() {
 
-    if (confirm("You are removing XXXXX from To-Do list.")) {
-      // need to delete the item from the list
+      if (confirm("You are removing XXXXX from To-Do list.")) {
+        // need to delete the item from the list
+      } else {
+        // do nothing
+      }
     }
-    else
-    {
-      // do nothing
+  </script>
+  <script type="text/javascript">
+    var map = null;
+    var test_data = [{
+        text: "first item",
+        location: {
+          address: "123 Sesame St",
+          longitude: 45.5100,
+          latitude: -122.700
+        }
+      },
+      {
+        text: "Second item",
+        location: {
+          address: "456 None St",
+          longitude: 45.4100,
+          latitude: -122.220
+        }
+      },
+      {
+        text: "Third item",
+        location: {
+          address: "777 me St",
+          longitude: 45.4300,
+          latitude: -122.230
+        }
+      },
+      {
+        text: "Fourth item",
+        location: {
+          address: "987 abc St",
+          longitude: 45.6100,
+          latitude: -122.200
+        }
+      }
+    ];
+    /**
+     * @param {String} HTML representing a single element
+     * @return {Element}
+     */
+    function htmlToElement(html) {
+        var template = document.createElement('template');
+        html = html.trim(); // Never return a text node of whitespace as the result
+        template.innerHTML = html;
+        return template.content.firstChild;
     }
 
+    function initMap() {
+      var location = {
+        lat: 45.5051,
+        lng: -122.675
+      };
+      map = new google.maps.Map(document.getElementById("smallmap"), {
+        zoom: 10,
+        center: location
+      });
+      //addPinToMap(map, 45.5100, -122.700);
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+      test_data.forEach(function(element) {
+        console.log(element);
+        addPinToMap(map, element.location.longitude, element.location.latitude);
+        var name = element.text;
+        var ul = document.getElementById("taskList");
+        var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text + "</strong><br>Distance:</button></li>");
+        ul.appendChild(li);
+      });
     }
 
-</script>
-<script type="text/javascript">
-  function initMap(){
-    var location = {lat: 45.5051, lng: -122.675};
-    var map = new google.maps.Map(document.getElementById("smallmap"), {
-      zoom: 4,
-      center: location
-    });
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map
-    });
-  }
-</script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript">
+    function addPinToMap(map, latitude, longitude) {
+      var pinLocation = {
+        lat: latitude,
+        lng: longitude
+      };
+      // TODO: need to call the locations from the DB
+      var marker = new google.maps.Marker({
+        position: pinLocation,
+        map: map
+      });
+    }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript">
 
-</script>
+  </script>
 
 </body>
+
 </html>
