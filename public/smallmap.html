@@ -63,7 +63,6 @@
   <script type="text/javascript">
     var map = null;
 
-    /*
     var test_data = [{
         text: "first item",
         location: {
@@ -97,7 +96,7 @@
         }
       }
     ];
-    */
+
 
     /**
      * @param {String} HTML representing a single element
@@ -123,7 +122,10 @@
       var icons = {
         start: {
           //icon: iconBase + 'superhero.png'
-          icon: 'http://localhost:8080/images/superhero.png'
+          url: 'http://localhost:8080/images/superhero.png',
+          scaledSize: new google.maps.Size(50, 50), // scaled size
+          // origin: new google.maps.Point(0,0), // origin
+          //  anchor: new google.maps.Point(0, 0) // anchor
         }
       };
       //addPinToMap(map, 45.5100, -122.700);
@@ -152,10 +154,10 @@
       req.open("GET", "/newItem/list", true);
       req.send();
 
-      /*
+
       var marker = new google.maps.Marker({
         position: location,
-        icon: icons.start.icon,
+        icon: icons.start,
         map: map
       });
       // getting current location
@@ -166,7 +168,8 @@
             lng: position.coords.longitude
           };
         // I utilized this to set starting location:  https://developers.google.com/maps/documentation/javascript/geolocation
-        marker = map.setCenter(startLocal);
+        map.setCenter(startLocal);
+        marker.setPosition(startLocal);
           //infoWindow.setPosition(pos);
           //  infoWindow.setContent('Location found.');
           //  infoWindow.open(map);
@@ -181,7 +184,7 @@
         var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text + "</strong><br>Distance:</button></li>");
         ul.appendChild(li);
       });
-      */
+
     }
 
     function addPinToMap(map, latitude, longitude) {
