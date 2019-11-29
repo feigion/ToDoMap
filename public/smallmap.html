@@ -62,11 +62,12 @@
   </script>
   <script type="text/javascript">
     var map = null;
+    var geocoder;
 
     var test_data = [{
         text: "first item",
         location: {
-          address: "123 Sesame St",
+          address: "3606 NE 43rd Ave Portland, OR 97213",
           longitude: 45.5100,
           latitude: -122.700
         }
@@ -110,6 +111,8 @@
     }
 
     function initMap() {
+      geocoder = new google.maps.Geocoder();
+      var latlng = new google.maps.LatLng(0,0);
       var location = {
         lat: 45.5051,
         lng: -122.675
@@ -118,17 +121,16 @@
         zoom: 10,
         center: location
       });
+
       var iconBase ='http://localhost:8080/images/';
+
       var icons = {
         start: {
           //icon: iconBase + 'superhero.png'
           url: 'http://localhost:8080/images/superhero.png',
           scaledSize: new google.maps.Size(50, 50), // scaled size
-          // origin: new google.maps.Point(0,0), // origin
-          //  anchor: new google.maps.Point(0, 0) // anchor
         }
       };
-      //addPinToMap(map, 45.5100, -122.700);
 
       // Get locations from database by doing a GET request to /newItem/list
       // Modified from example in the class slides
@@ -154,7 +156,6 @@
       req.open("GET", "/newItem/list", true);
       req.send();
 
-
       var marker = new google.maps.Marker({
         position: location,
         icon: icons.start,
@@ -176,6 +177,8 @@
           //  map.setCenter(pos);
         });
       }
+      // codeAddress("3606 N.E. 43rd Ave Portland, OR 97213");
+      //test
       test_data.forEach(function(element) {
         console.log(element);
         addPinToMap(map, element.location.longitude, element.location.latitude);
@@ -184,8 +187,21 @@
         var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text + "</strong><br>Distance:</button></li>");
         ul.appendChild(li);
       });
-
     }
+
+    function codeAddress(address) {
+        geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
 
     function addPinToMap(map, latitude, longitude) {
       var pinLocation = {
