@@ -115,11 +115,34 @@
         zoom: 10,
         center: location
       });
+      var iconBase ='http://localhost:8080/images/';
+      var icons = {
+        start: {
+          //icon: iconBase + 'superhero.png'
+          icon: 'http://localhost:8080/images/superhero.png'
+        }
+      };
       //addPinToMap(map, 45.5100, -122.700);
       var marker = new google.maps.Marker({
         position: location,
+        icon: icons.start.icon,
         map: map
       });
+      // getting current location
+      if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var startLocal = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+        // I utilized this to set starting location:  https://developers.google.com/maps/documentation/javascript/geolocation
+        marker = map.setCenter(startLocal);
+          //infoWindow.setPosition(pos);
+          //  infoWindow.setContent('Location found.');
+          //  infoWindow.open(map);
+          //  map.setCenter(pos);
+        });
+      }
       test_data.forEach(function(element) {
         console.log(element);
         addPinToMap(map, element.location.longitude, element.location.latitude);
@@ -145,7 +168,7 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript">
 
   </script>
-
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 </body>
 
 </html>
