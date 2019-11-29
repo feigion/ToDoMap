@@ -62,6 +62,8 @@
   </script>
   <script type="text/javascript">
     var map = null;
+
+    /*
     var test_data = [{
         text: "first item",
         location: {
@@ -95,6 +97,8 @@
         }
       }
     ];
+    */
+
     /**
      * @param {String} HTML representing a single element
      * @return {Element}
@@ -123,6 +127,32 @@
         }
       };
       //addPinToMap(map, 45.5100, -122.700);
+
+      // Get locations from database by doing a GET request to /newItem/list
+      // Modified from example in the class slides
+      let req = new XMLHttpRequest();
+      req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+          if (req.status == 200) {
+            let results = JSON.parse(req.response);
+            for (i in results) {
+              task = results[i];
+              addPinToMap(map, task.latitude, task.longitude);
+              var ul = document.getElementById("taskList");
+              var li = htmlToElement(
+                '<li class="list-group-item"><button onclick="confirmFunction()" class="btn btn-secondary btn-lg btn-block"><strong>' +
+                  task.name +
+                  "</strong><br>Distance:</button></li>"
+              );
+              ul.appendChild(li);
+            }
+          }
+        }
+      };
+      req.open("GET", "/newItem/list", true);
+      req.send();
+
+      /*
       var marker = new google.maps.Marker({
         position: location,
         icon: icons.start.icon,
@@ -151,6 +181,7 @@
         var li = htmlToElement("<li class=\"list-group-item\"><button onclick=\"confirmFunction()\" class=\"btn btn-secondary btn-lg btn-block\"><strong>" + element.text + "</strong><br>Distance:</button></li>");
         ul.appendChild(li);
       });
+      */
     }
 
     function addPinToMap(map, latitude, longitude) {
