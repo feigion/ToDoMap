@@ -9,6 +9,13 @@ var newItemRouter = require('./routes/newItem');
 
 var app = express();
 
+// Database setup from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb+srv://admin:fullstackapp@cluster0-gnqm2.mongodb.net/todomap?retryWrites=true&w=majority';
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

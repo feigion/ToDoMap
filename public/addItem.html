@@ -40,7 +40,7 @@
       </ul>
     </div>
   </nav>
-  <form class="border border-dark" action="addItem.html" id="newItem" method="post">
+  <form class="border border-dark" action="/newItem" id="newItem" method="post">
     <div class="form-group">
       <label for="toDoItem">What I need to do is...</label>
       <input type="text" class="form-control" id="toDoItem" name="toDoItem" placeholder="Enter Task Here">
@@ -73,12 +73,12 @@
   <script type="text/javascript">
     $('#submitButton').on('click', function() {
       console.log('To Do Item: ' + toDoItem.value);
-      console.log('Address: ' + toDoAddress.value);
+      console.log('Address: ' + toDoLocation.value);
       console.log('priorityValue: ' + priorityValue.value);
     });
     $('restButton').on('click', function() {
         toDoItem.value = "";
-        toDoAddress.value = "";
+        toDoLocation.value = "";
       });
   </script>
 </body>
