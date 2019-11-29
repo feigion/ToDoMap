@@ -40,7 +40,7 @@
     </nav>
     <div class="container">
       <div class="row">
-        <div class="col-md-8" id="largemap">Large map</div>
+        <div class="col-md-8 largemap" id="map">Large map</div>
         <div class="col-md-4" id="sidebar">
           <div class="row" id="add"> <a href="addItem.html">Add to list </a> </div>
           <div class="row" id="addItem"> <a href="addItem.html">Add to list </a> </div>
@@ -48,19 +48,7 @@
         </div>
       </div>
     </div>
-    <script type="text/javascript">
-      function initMap(){
-        var location = {lat: 45.5051, lng: -122.675};
-        var map = new google.maps.Map(document.getElementById("largemap"), {
-          zoom: 4,
-          center: location
-        });
-        var marker = new google.maps.Marker({
-          position: location,
-          map: map
-        });
-      }
-    </script>
+    <script src="./loadTasks.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript">
 
     </script>
