@@ -3,7 +3,6 @@ h1{
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   padding-top: 10px;
   color: #fc5185;
-
 }
 
 h3{
@@ -13,8 +12,9 @@ h3{
   background-color: #3c9d9b;
 }
 .list-group{
-    max-height: 360px;
-    margin-bottom: 10px;
+    width: 100rem;
+    background-color: #3c9d9b;
+    /* margin-bottom: 10px; */
     overflow:scroll;
     -webkit-overflow-scrolling: touch;
 }
@@ -34,27 +34,27 @@ color: #3fc1c9;
 
 }
 
-.form-group, .form-check{
-/* background-color: #3c9d9b;  */
-}
+/* .form-group, .form-check{ 
+ background-color: #3c9d9b;
+} */
 
 #toDoList{
   margin: 10px 10px 10px;
 
 }
-#map{
+/* #map{
   height: 500px;
   width: 50%;
   margin: 0;
   padding: 0;
-}
+} */
 
-#largemap {
+.largemap {
   height: 500px;
   background-color: lightgray;
 }
 
-#smallmap {
+.smallmap {
   height: 450px;
   max-width: 576px;
   background-color: lightgray;
@@ -70,13 +70,15 @@ color: #3fc1c9;
 }
 
 @media (max-width: 576px) {
-  #largemap {
+  .largemap {
     display: none;
   }
   #header {
     display: none;
   }
-
+  .list-group {
+    max-height: 500px;
+  }
 }
 
 @media (min-width: 576px) {
@@ -91,6 +93,10 @@ color: #3fc1c9;
 
   #addItem{
   display: none;
+  }
+
+  .list-group {
+    height: 475px;
   }
 }
 #titleAddItem{
