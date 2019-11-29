@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Task = require('../models/task');
 
-/* GET users listing. */
 router.post('/', function(req, res, next) {
   var task = new Task(
         { 
@@ -14,12 +13,25 @@ router.post('/', function(req, res, next) {
     // if (err) { return next(err); }
       // res.redirect('index.html');
   })
+  console.log(task);
 
-  //console.log(req.body);
-  res.send('Got a new item to do...');
+  // Map still needs to be updated with the tasks from the DB - for now, just
+  // redirect back to smallmap.html
+  res.redirect("smallmap.html");
 });
+
 router.get('/list', function(req, res, next) {
-  res.send('Here is a list of stuff...');
+  // Get all the tasks in the DB
+  Task.find()
+    .sort([['name', 'ascending']])
+    .exec(function(err, list_tasks) {
+      if (err) {return next(err); }
+      console.log(list_tasks);
+
+      // For now, just send the list of tasks - will be used to populate the 
+      // map and list of tasks
+      res.send(list_tasks);
+    });
 });
 
 
