@@ -130,8 +130,7 @@
             let results = JSON.parse(req.response);
             for (i in results) {
               task = results[i];
-              // TODO: add latitude and longitude to the database and use those values here
-              addPinToMap(map, 45.5051, -122.675);
+              addPinToMap(map, task.latitude, task.longitude);
               var ul = document.getElementById("taskList");
               var li = htmlToElement(
                 '<li class="list-group-item"><button onclick="confirmFunction()" class="btn btn-secondary btn-lg btn-block"><strong>' +
