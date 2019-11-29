@@ -3,7 +3,6 @@ h1{
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   padding-top: 10px;
   color: #fc5185;
-
 }
 
 h3{
@@ -13,8 +12,9 @@ h3{
   background-color: #3c9d9b;
 }
 .list-group{
-    max-height: 360px;
-    margin-bottom: 10px;
+    width: 100rem;
+    background-color: #3c9d9b;
+    /* margin-bottom: 10px; */
     overflow:scroll;
     -webkit-overflow-scrolling: touch;
 }
@@ -75,7 +75,9 @@ color: #3fc1c9;
   #header {
     display: none;
   }
-
+  .list-group {
+    max-height: 500px;
+  }
 }
 
 @media (min-width: 576px) {
@@ -90,6 +92,10 @@ color: #3fc1c9;
 
   #addItem{
   display: none;
+  }
+
+  .list-group {
+    height: 475px;
   }
 }
 #titleAddItem{
