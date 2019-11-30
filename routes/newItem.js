@@ -19,7 +19,7 @@ router.post('/', function(req, res, next) {
   })
   console.log(task);
 
-  res.redirect("smallmap.html");
+  res.redirect("index.html");
 });
 
 router.get('/list', function(req, res, next) {

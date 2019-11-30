@@ -82,7 +82,7 @@
              var ul = document.getElementById("taskList");
              if (ul != null) {
                var li = htmlToElement(
-                 '<li class="list-group-item"><button onclick="confirmFunction()" class="btn btn-secondary btn-lg btn-block"><strong>' +
+                 '<li class="list-group-item"><button onclick="confirmFunction($(this))" class="btn btn-secondary btn-lg btn-block"><strong>' +
                  task.name +
                  "</strong><br>Distance:</button></li>"
                );
