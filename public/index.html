@@ -52,24 +52,21 @@
     </div>
     <script type="text/javascript">
       function confirmFunction(element) {
-        if (confirm("You are removing XXXXX from To-Do list.")) {
-          // Get the name of the task
-          var name = element[0].textContent;
-          var result = name.split("Distance")[0];
-
+        // Get the name of the task
+        var text = element[0].textContent;
+        var name = text.split("Distance")[0];
+        if (confirm(`You are removing ${name} from To-Do list.`)) {
           // TODO: remove the item from the map and database
 
           // Remove the item from the task list
           var ul = document.getElementById("taskList");
-          ul.removeChild(element[0].parentElement);
+          ul.removeChild(element[0].parentElement);  //https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
         } else {
           // do nothing
         }
       }
     </script>
     <script src="./loadTasks.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript">
-
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript"></script>
   </body>
 </html>
