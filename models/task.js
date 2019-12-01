@@ -11,7 +11,8 @@ var TaskSchema = new Schema(
         location: {type: String, required: true},
         latitude: {type: Number, required: true},
         longitude: {type: Number, required: true},
-        completed: {type: Boolean, required: true}
+        completed: {type: Boolean, required: true},
+        markerIndex: {type: Number}
     }
 );
 

@@ -1,6 +1,10 @@
    var map = null;
    var geocoder;
 
+   // Used Google demo on tracking markers: 
+   // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
+   var allMarkers = [20];
+
    // var test_data = [{
    //     text: "first item",
    //     location: {
@@ -78,7 +82,10 @@
            let results = JSON.parse(req.response);
            for (i in results) {
              task = results[i];
-             addPinToMap(map, task.latitude, task.longitude);
+             var marker = addPinToMap(map, task.latitude, task.longitude);
+             // TODO: check if task already has a marker index in the db, and reuse that instead of changing the index?
+             allMarkers.push(marker);
+             updateTask(task.name, i);
              var ul = document.getElementById("taskList");
              if (ul != null) {
                var li = htmlToElement(
@@ -115,6 +122,7 @@
          //  infoWindow.open(map);
          //  map.setCenter(pos);
        });
+      //  console.log(allMarkers);
      }
      // codeAddress("3606 N.E. 43rd Ave Portland, OR 97213");
      //test
@@ -144,6 +152,22 @@
        });
      }
 
+     // TODO: it is very slow to call this for each task - need to figure out why
+     function updateTask(taskName, markerIndex) {
+      let put = new XMLHttpRequest();
+      put.onreadystatechange = function() {
+        if (put.readyState == 4) {
+          if (put.status == 200) {
+            console.log(put.response);
+          }
+        }
+      }
+      put.open("PUT", "/newItem/update", true);
+      // https://stackoverflow.com/questions/39519246/make-xmlhttprequest-post-using-json/39519299
+      put.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      put.send(JSON.stringify({"name": taskName, "markerIndex": markerIndex}));
+    }
+
      function addPinToMap(map, latitude, longitude) {
        var pinLocation = {
          lat: latitude,
@@ -154,5 +178,28 @@
          position: pinLocation,
          map: map
        });
+      //  console.log(marker);
+       return marker;
      }
    }
+
+function confirmFunction(element) {
+  // console.log(allMarkers);
+  // Get the name of the task
+  var text = element[0].textContent;
+  var name = text.split("Distance")[0];
+  if (confirm(`You are removing ${name} from To-Do list.`)) {
+    // TODO: remove the item from the map
+    // First, get the information about the task from the database
+    // Using the marker index, get the marker from allMarkers
+    // Then remove the marker from the map
+
+    // TODO: remove the item from the database (or set flag to completed?)
+
+    // Remove the item from the task list
+    var ul = document.getElementById("taskList");
+    ul.removeChild(element[0].parentElement);  //https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
+  } else {
+    // do nothing
+  }
+}
