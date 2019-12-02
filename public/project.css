@@ -20,7 +20,13 @@ h3{
 }
 
 body {
-  background-color: #394A6D;
+  /* background-color: #394A6D; */
+
+  background:
+  /* linear-gradient(rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)),  */
+      url("images/background2.jpg");
+      background-size: cover;
 
 }
 
@@ -34,7 +40,7 @@ color: #3fc1c9;
 
 }
 
-/* .form-group, .form-check{ 
+/* .form-group, .form-check{
  background-color: #3c9d9b;
 } */
 
@@ -102,6 +108,9 @@ color: #3fc1c9;
 #titleAddItem{
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   color: #fc5185;
+}
+#add{
+  text-align: center;
 }
 
 /* navbar */
