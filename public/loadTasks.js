@@ -2,6 +2,7 @@
 // view-source:https://andrew.hedges.name/experiments/haversine/ this is where this lat/long distance algorithm was found
 
 
+
 var Rm = 3961; // mean radius of the earth (miles) at 39 degrees from the equator
 
 /* main function */
@@ -56,9 +57,10 @@ function round(x) {
      lat: 45.5051,
      lng: -122.675
    };
-   // // Used Google demo on tracking markers:
-   // // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
-   var allMarkers = [20];
+      // Used Google demo on tracking markers: 
+   // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
+   var allMarkers = [];
+   var markerDict = {};
    //
    /**
     * @param {String} HTML representing a single element
@@ -184,8 +186,10 @@ function round(x) {
              };
              task.distance = findDistance(startLocation, destination);
              // TODO: check if task already has a marker index in the db, and reuse that instead of changing the index?
-             allMarkers.push(marker);
-             // updateTask(task.name, i);
+
+             //  allMarkers.push(marker);
+             //  updateTask(task.name, i);
+             markerDict[task.name] = marker;
              var ul = document.getElementById("taskList");
              if (ul != null) {
                var li = htmlToElement(
@@ -276,23 +280,35 @@ function round(x) {
    //     }
    // }
 
-   function confirmFunction(element) {
-     // console.log(allMarkers);
-     // Get the name of the task
-     var text = element[0].textContent;
-     var name = text.split("Distance")[0];
-     if (confirm(`You are removing ${name} from To-Do list.`)) {
-       // TODO: remove the item from the map
-       // First, get the information about the task from the database
-       // Using the marker index, get the marker from allMarkers
-       // Then remove the marker from the map
+function confirmFunction(element) {
+  // console.log(allMarkers);
+  // Get the name of the task
+  var text = element[0].textContent;
+  var name = text.split("Distance")[0];
+  if (confirm(`You are removing ${name} from To-Do list.`)) {
+    // Remove the item from the map
+    /*
+    let req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4) {
+        if (req.status == 200) {
+          const info = JSON.parse(req.response);
+          const index = info.markerIndex;
+          allMarkers[index].setMap(null);
+        }
+      }
+    }
+    req.open("GET", `/newItem/task/${name}`);
+    req.send();
+    */
+    markerDict[name].setMap(null);
 
-       // TODO: remove the item from the database (or set flag to completed?)
+    // TODO: remove the item from the database (or set flag to completed?)
 
-       // Remove the item from the task list
-       var ul = document.getElementById("taskList");
-       ul.removeChild(element[0].parentElement); //https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
-     } else {
-       // do nothing
-     }
-   }
+    // Remove the item from the task list
+    var ul = document.getElementById("taskList");
+    ul.removeChild(element[0].parentElement);  //https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
+  } else {
+    // do nothing
+  }
+}
