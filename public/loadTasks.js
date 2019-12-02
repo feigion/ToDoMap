@@ -206,6 +206,7 @@ function addPinToMap(map, latitude, longitude) {
   // TODO: need to call the locations from the DB
   var marker = new google.maps.Marker({
     position: pinLocation,
+    label: alphaLabels[labelIndex++ %alphaLabels.length],
     map: map
   });
   console.log(pinLocation);
