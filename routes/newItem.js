@@ -3,15 +3,12 @@ var router = express.Router();
 var Task = require('../models/task');
 
 router.post('/', function(req, res, next) {
-  // TODO: calculate longitude and latitude from the address to use instead of placeholders below
-  const lat = 45.5051;
-  const long = -122.675;
   var task = new Task(
         { 
             name: req.body.toDoItem,
             location: req.body.toDoLocation,
-            latitude: lat,
-            longitude: long,
+            latitude: req.body.lat,
+            longitude: req.body.lng,
         }
     )
   task.save(function (err) {
@@ -20,7 +17,7 @@ router.post('/', function(req, res, next) {
       // return next(err); 
     }
   })
-  // console.log(task);
+  console.log(task);
 
   res.redirect("index.html");
 });
