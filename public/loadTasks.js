@@ -1,7 +1,8 @@
 
-// view-source:https://andrew.hedges.name/experiments/haversine/ this is where this lat/long distance algorithm was found
+// view-source:https://andrew.hedges.name/experiments/haversine/ this is where this lat/long distance algorithm was found, (this code is almost identical)
 
-
+var alphaLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var labelIndex = 0;
 var Rm = 3961; // mean radius of the earth (miles) at 39 degrees from the equator
 
 /* main function */
@@ -24,7 +25,7 @@ function findDistance(origin, destination) {
   dlat = lat2 - lat1;
   dlon = lon2 - lon1;
 
-  // here's the heavy lifting
+  // how to find distance with lat/longitude
   a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
   c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // great circle distance in radians
   dm = c * Rm; // great circle distance in miles
@@ -124,7 +125,7 @@ function initMap() {
     center: startLocation
   });
   startingLocation(map);
-  
+
   // Get locations from database by doing a GET request to /newItem/list
   // Modified from example in the class slides
   let req = new XMLHttpRequest();
