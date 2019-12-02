@@ -38,6 +38,22 @@ router.get('/list', function(req, res, next) {
     });
 });
 
+router.get('/task/:name', function(req, res, next) {
+  let taskName = req.params.name;
+  console.log("Getting " + taskName);
+  Task.find()
+    .where({name: taskName})
+    .exec(function(err, task_list) {
+      if (err) {
+        // return next(err); 
+        console.log(err);
+      }
+      task = task_list[0];  // TODO: handle duplicate names
+      console.log(task);
+      res.send(JSON.stringify(task));
+    });
+});
+
 router.put('/update', function(req, res, next) {
   console.log("In update for " + req.body.name);
   Task.find()
@@ -47,20 +63,14 @@ router.put('/update', function(req, res, next) {
         // return next(err); 
         console.log(err);
       }
-      task = task_list[0];
-      if (task.name == req.body.name) {
-        console.log("Match: " + task.name);
-        task.markerIndex = req.body.markerIndex;
-        console.log(task.markerIndex);
-        task.save(function(err) {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-      else {
-        console.log("No match: " + task.name + ", " + req.body.name);
-      }
+      task = task_list[0];  // TODO: handle duplicate names
+      console.log("Found: " + task.name);
+      task.markerIndex = req.body.markerIndex;
+      task.save(function(err) {
+        if (err) {
+          console.log(err);
+        }
+      });
     });
 });
 

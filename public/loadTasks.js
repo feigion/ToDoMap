@@ -3,7 +3,7 @@
 
    // Used Google demo on tracking markers: 
    // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
-   var allMarkers = [20];
+   var allMarkers = [];
 
    // var test_data = [{
    //     text: "first item",
@@ -189,10 +189,22 @@ function confirmFunction(element) {
   var text = element[0].textContent;
   var name = text.split("Distance")[0];
   if (confirm(`You are removing ${name} from To-Do list.`)) {
-    // TODO: remove the item from the map
+    // Remove the item from the map
     // First, get the information about the task from the database
     // Using the marker index, get the marker from allMarkers
     // Then remove the marker from the map
+    let req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      if (req.readyState == 4) {
+        if (req.status == 200) {
+          const info = JSON.parse(req.response);
+          const index = info.markerIndex;
+          allMarkers[index].setMap(null);
+        }
+      }
+    }
+    req.open("GET", `/newItem/task/${name}`);
+    req.send();
 
     // TODO: remove the item from the database (or set flag to completed?)
 
