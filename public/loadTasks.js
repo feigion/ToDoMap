@@ -4,6 +4,7 @@
    // Used Google demo on tracking markers: 
    // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
    var allMarkers = [];
+   var markerDict = {};
 
    // var test_data = [{
    //     text: "first item",
@@ -84,8 +85,9 @@
              task = results[i];
              var marker = addPinToMap(map, task.latitude, task.longitude);
              // TODO: check if task already has a marker index in the db, and reuse that instead of changing the index?
-             allMarkers.push(marker);
-             updateTask(task.name, i);
+             //  allMarkers.push(marker);
+             //  updateTask(task.name, i);
+             markerDict[task.name] = marker;
              var ul = document.getElementById("taskList");
              if (ul != null) {
                var li = htmlToElement(
@@ -190,9 +192,7 @@ function confirmFunction(element) {
   var name = text.split("Distance")[0];
   if (confirm(`You are removing ${name} from To-Do list.`)) {
     // Remove the item from the map
-    // First, get the information about the task from the database
-    // Using the marker index, get the marker from allMarkers
-    // Then remove the marker from the map
+    /*
     let req = new XMLHttpRequest();
     req.onreadystatechange = function() {
       if (req.readyState == 4) {
@@ -205,6 +205,8 @@ function confirmFunction(element) {
     }
     req.open("GET", `/newItem/task/${name}`);
     req.send();
+    */
+    markerDict[name].setMap(null);
 
     // TODO: remove the item from the database (or set flag to completed?)
 
