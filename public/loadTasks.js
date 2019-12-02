@@ -31,9 +31,10 @@ function findDistance(origin, destination) {
   dm = c * Rm; // great circle distance in miles
 
   // round the results down to the nearest 1/1000
-  mi = round(dm);
+  mi = round(dm * 10)/10;
+  var fixed = mi.toFixed(1);
 
-  return mi;
+  return fixed;
 }
 
 // convert degrees to radians
@@ -110,16 +111,6 @@ function startingLocation(map) {
 function initMap() {
   // finding streets
   geocoder = new google.maps.Geocoder();
-  // finding lat/long
-  //var latlng = new google.maps.LatLng(0, 0);
-  // finding distance
-  //var service = new google.maps.DistanceMatrixService();
-  // This is used for default start location
-  // var location = {
-  // lat: 45.5051,
-  // lng: -122.675
-  // };
-  // initializing map
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 10,
     center: startLocation
@@ -162,7 +153,7 @@ function initMap() {
             var li = htmlToElement(
               '<li class="list-group-item"><button onclick="confirmFunction($(this))" class="btn btn-secondary btn-lg btn-block"><strong>' +
                 task.name +
-                "</strong><br>Distance: " +
+                "</strong><br> " +
                 task.distance +
                 " miles </button></li>"
             );
