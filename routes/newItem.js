@@ -12,8 +12,6 @@ router.post('/', function(req, res, next) {
             location: req.body.toDoLocation,
             latitude: lat,
             longitude: long,
-            completed: false,
-            markerIndex: null
         }
     )
   task.save(function (err) {
@@ -51,6 +49,19 @@ router.get('/task/:name', function(req, res, next) {
       task = task_list[0];  // TODO: handle duplicate names
       console.log(task);
       res.send(JSON.stringify(task));
+    });
+});
+
+router.delete('/task/:name', function(req, res, next) {
+  let taskName = req.params.name;
+  Task.findOneAndDelete()
+    .where({name: taskName})
+    .exec(function(err, task_list) {
+      if (err) {
+        // return next(err); 
+        console.log(err);
+      }
+      res.send();
     });
 });
 
