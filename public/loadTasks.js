@@ -2,7 +2,6 @@
 // view-source:https://andrew.hedges.name/experiments/haversine/ this is where this lat/long distance algorithm was found
 
 
-
 var Rm = 3961; // mean radius of the earth (miles) at 39 degrees from the equator
 
 /* main function */
@@ -125,41 +124,7 @@ function initMap() {
     center: startLocation
   });
   startingLocation(map);
-  // These used for finding distance
-  // var origin = location;
-  // var destination = (0, 0);
-
-  //superhuman, with possibility of more images
-  // var iconBase = 'http://localhost:8080/images/';
-  // var icons = {
-  //   start: {
-  //     //icon: iconBase + 'superhero.png'
-  //     url: 'http://localhost:8080/images/superhero.png',
-  //     scaledSize: new google.maps.Size(50, 50), // scaled size
-  //   }
-  // };
-
-  // var marker = new google.maps.Marker({
-  //   position: location,
-  //   icon: icons.start,
-  //   map: map
-  // });
-  // getting current location
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var startLocal = {
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //     };
-  //     // I utilized this to set starting location:  https://developers.google.com/maps/documentation/javascript/geolocation
-  //     map.setCenter(startLocal);
-  //     marker.setPosition(startLocal);
-  //     origin = startLocal;
-  //     //infoWindow.setPosition(pos);
-  //     //  infoWindow.setContent('Location found.');
-  //     //  infoWindow.open(map);
-  //     //  map.setCenter(pos);
-  //   });
+  
   // Get locations from database by doing a GET request to /newItem/list
   // Modified from example in the class slides
   let req = new XMLHttpRequest();
@@ -167,17 +132,29 @@ function initMap() {
     if (req.readyState == 4) {
       if (req.status == 200) {
         let results = JSON.parse(req.response);
+
+        results.forEach(task => {
+          var destination = {
+            lat: task.latitude,
+            lng: task.longitude
+          };
+          task.distance = findDistance(startLocation, destination);
+        });
+        results.sort(function (a, b) {
+         return a.distance - b.distance;
+         });
         // Testing
         console.log("Task List from Server: " + results);
         for (i in results) {
           task = results[i];
           console.log("Task: " + task);
+
           var marker = addPinToMap(map, task.latitude, task.longitude);
           destination = {
             lat: task.latitude,
             lng: task.longitude
           };
-          task.distance = findDistance(startLocation, destination);
+          // task.distance = findDistance(startLocation, destination);
           markerDict[task.name] = marker;
           var ul = document.getElementById("taskList");
           if (ul != null) {
@@ -198,6 +175,8 @@ function initMap() {
   req.send();
 }
 // codeAddress("3606 N.E. 43rd Ave Portland, OR 97213");
+
+
 
 function codeAddress(address) {
   geocoder.geocode(
@@ -231,28 +210,7 @@ function addPinToMap(map, latitude, longitude) {
   console.log(pinLocation);
   return marker;
 }
-// service.getDistanceMatrix({
-//   origins: origin,
-//   destinations: destination,
-// }, callback);
-//
-// function callback(response, status) {
-//   if (status == 'OK') {
-//     var origin = response.originAddresses;
-//     var destination = response.destinationAddresses;
-//
-//     for (var i = 0; i < origins.length; i++) {
-//       var results = response.rows[i].elements;
-//       for (var j = 0; j < results.length; j++) {
-//         var element = results[j];
-//         var distance = element.distance.text;
-//         var duration = element.duration.text;
-//         var from = origins[i];
-//         var to = destinations[j];
-//       }
-//       }
-//     }
-// }
+
 
 function confirmFunction(element) {
   // Get the name of the task
