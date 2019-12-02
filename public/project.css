@@ -3,6 +3,7 @@ h1{
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   padding-top: 10px;
   color: #fc5185;
+  /* font-size: 24px; */
 }
 
 h3{
@@ -93,7 +94,7 @@ color: #3fc1c9;
   }
 
   #header {
-    font-size: 30px;
+    font-size: 50px;
     margin-bottom: 30px;
   }
 
