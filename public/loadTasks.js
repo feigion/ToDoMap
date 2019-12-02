@@ -150,7 +150,7 @@ function initMap() {
           task = results[i];
           console.log("Task: " + task);
 
-          var marker = addPinToMap(map, task.latitude, task.longitude);
+          var marker = addPinToMap(map, task.latitude, task.longitude, i % alphaLabels.length);
           destination = {
             lat: task.latitude,
             lng: task.longitude
@@ -161,6 +161,7 @@ function initMap() {
           if (ul != null) {
             var li = htmlToElement(
               '<li class="list-group-item"><button onclick="confirmFunction($(this))" class="btn btn-secondary btn-lg btn-block"><strong>' +
+                alphaLabels[i % alphaLabels.length] + ". " +
                 task.name +
                 "</strong><br>Distance: " +
                 task.distance +
@@ -198,7 +199,7 @@ function codeAddress(address) {
   );
 }
 
-function addPinToMap(map, latitude, longitude) {
+function addPinToMap(map, latitude, longitude, i) {
   var pinLocation = {
     lat: latitude,
     lng: longitude
@@ -206,7 +207,7 @@ function addPinToMap(map, latitude, longitude) {
   // TODO: need to call the locations from the DB
   var marker = new google.maps.Marker({
     position: pinLocation,
-    label: alphaLabels[labelIndex++ %alphaLabels.length],
+    label: alphaLabels[i],
     map: map
   });
   console.log(pinLocation);
@@ -218,6 +219,8 @@ function confirmFunction(element) {
   // Get the name of the task
   var text = element[0].textContent;
   var name = text.split("Distance")[0];
+  // Remove the letter label from the name
+  name = name.substring(3, name.length);
   if (confirm(`You are removing ${name} from To-Do list.`)) {
     // Remove the marker for the task from the map
     markerDict[name].setMap(null); // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
