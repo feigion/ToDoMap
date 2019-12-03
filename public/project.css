@@ -110,8 +110,8 @@ color: #3fc1c9;
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   color: #fc5185;
 }
-#add{
-  text-align: center;
-}
 
+#mapAndList{
+  height: 100%
+}
 /* navbar */
