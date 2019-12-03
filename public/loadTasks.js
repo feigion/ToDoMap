@@ -151,7 +151,7 @@ function initMap() {
           var ul = document.getElementById("taskList");
           if (ul != null) {
             var li = htmlToElement(
-              '<li class="list-group-item"><button onclick="confirmFunction($(this))" class="btn btn-secondary btn-lg btn-block"><strong>' +
+              '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' + task.name + '\')" class="btn btn-secondary btn-lg btn-block"><strong>' +
                 alphaLabels[i % alphaLabels.length] + ". " +
                 task.name +
                 "</strong><br> " +
@@ -206,15 +206,11 @@ function addPinToMap(map, latitude, longitude, i) {
 }
 
 
-function confirmFunction(element) {
-  // Get the name of the task
-  var text = element[0].textContent;
-  var name = text.split("Distance")[0];
-  // Remove the letter label from the name
-  name = name.substring(3, name.length);
+function confirmFunction(element, name) {
   if (confirm(`You are removing ${name} from To-Do list.`)) {
     // Remove the marker for the task from the map
     markerDict[name].setMap(null); // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
+
     delete markerDict[name]; // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
 
     // Remove the task from the database
