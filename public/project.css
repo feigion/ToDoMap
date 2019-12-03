@@ -1,25 +1,3 @@
-h1{
-  text-align: center;
-  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
-  padding-top: 10px;
-  color: #fc5185;
-  /* font-size: 24px; */
-}
-
-h3{
-  color: #3c9d9b;
-}
-.list-group-item{
-  background-color: #3c9d9b;
-}
-.list-group{
-    width: 100rem;
-    background-color: #3c9d9b;
-    /* margin-bottom: 10px; */
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
-}
-
 body {
   /* background-color: #394A6D; */
 
@@ -28,7 +6,6 @@ body {
       rgba(0, 0, 0, 0.5)),  */
       url("images/background2.jpg");
       background-size: cover;
-
 }
 
 form {
@@ -41,51 +18,16 @@ color: #3fc1c9;
 
 }
 
-/* .form-group, .form-check{
- background-color: #3c9d9b;
-} */
-
-#toDoList{
-  margin: 10px 10px 10px;
-
-}
-/* #map{
-  height: 500px;
-  width: 50%;
-  margin: 0;
-  padding: 0;
-} */
-
-.largemap {
-  height: 500px;
-  background-color: lightgray;
+h1{
+  text-align: center;
+  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
+  padding-top: 10px;
+  color: #fc5185;
+  /* font-size: 24px; */
 }
 
-.smallmap {
-  height: 450px;
-  max-width: 576px;
-  background-color: lightgray;
-  margin-top: 50px;
-  margin: 50px 50px 20px;
-  /* height: 100%; */
-}
-
-#sidebar {
-  min-height: 200px;
-  max-height: 500px;
-  background-color: gray;
-}
-
-@media (max-width: 576px) {
-  .largemap {
-    display: none;
-  }
-  #header {
-    display: none;
-  }
-  .list-group {
-    max-height: 500px;
-  }
+h3{
+  color: #3c9d9b;
 }
 
 @media (min-width: 576px) {
@@ -106,12 +48,78 @@ color: #3fc1c9;
     height: 475px;
   }
 }
+
+@media (max-width: 576px) {
+  .largemap {
+    display: none;
+  }
+  #header {
+    display: none;
+  }
+  .list-group {
+    max-height: 500px;
+  }
+}
+
+.largemap {
+  height: auto;
+  background-color: lightgray;
+}
+
+.list-group-item{
+  background-color: #3c9d9b;
+}
+
+.list-group{
+    width: 100rem;
+    background-color: #3c9d9b;
+    /* margin-bottom: 10px; */
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.smallmap {
+  height: 450px;
+  max-width: 576px;
+  background-color: lightgray;
+  margin-top: 50px;
+  margin: 50px 50px 20px;
+  /* height: 100%; */
+}
+#add{
+  font-size: 40px;
+  /* text-align: center; */
+  color: #fc5185;
+  font-family: cursive;
+  /* display: inline-block; */
+  margin-left: 30%;
+}
+#mapAndList{}
+
+#sidebar {
+  min-height: 200px;
+  max-height: 500px;
+  background-color: gray;
+}
+
 #titleAddItem{
   font-family: 'Josefin Sans', 'Oxygen', sans-serif;
   color: #fc5185;
 }
+#toDoList{
+  margin: 10px 10px 10px;
 
-#mapAndList{
-  height: 100%
 }
+
+/* .form-group, .form-check{
+ background-color: #3c9d9b;
+} */
+
+/* #map{
+  height: 500px;
+  width: 50%;
+  margin: 0;
+  padding: 0;
+} */
+
 /* navbar */
