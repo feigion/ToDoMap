@@ -136,10 +136,10 @@ function initMap() {
          return a.distance - b.distance;
          });
         // Testing
-        console.log("Task List from Server: " + results);
+        // console.log("Task List from Server: " + results);
         for (i in results) {
           task = results[i];
-          console.log("Task: " + task);
+          // console.log("Task: " + task);
 
           var marker = addPinToMap(map, task.latitude, task.longitude, i % alphaLabels.length);
           destination = {
@@ -201,7 +201,7 @@ function addPinToMap(map, latitude, longitude, i) {
     label: alphaLabels[i],
     map: map
   });
-  console.log(pinLocation);
+  // console.log(pinLocation);
   return marker;
 }
 
