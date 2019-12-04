@@ -81,7 +81,8 @@ function startingLocation(map) {
   var icons = {
     start: {
       //icon: iconBase + 'superhero.png'
-      url: "http://localhost:8080/images/superhero.png",
+      // url: "http://localhost:8080/images/superhero.png",
+      url: "./images/superhero.png",
       scaledSize: new google.maps.Size(50, 50) // scaled size
     }
   };
