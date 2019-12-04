@@ -141,8 +141,15 @@ function initMap() {
         for (i in results) {
           task = results[i];
           console.log("Task: " + task);
-
+          var contentString = '<div> '+ task.name +' </div>';
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
           var marker = addPinToMap(map, task.latitude, task.longitude, i % alphaLabels.length);
+          marker.myinfowindow = infowindow;
+          marker.addListener('click', function() {
+            this.myinfowindow.open(map, this);
+          });
           destination = {
             lat: task.latitude,
             lng: task.longitude
