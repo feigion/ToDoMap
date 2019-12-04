@@ -209,7 +209,7 @@ function addPinToMap(map, latitude, longitude, i) {
     label: alphaLabels[i],
     map: map
   });
-  console.log(pinLocation);
+  // console.log(pinLocation);
   return marker;
 }
 
