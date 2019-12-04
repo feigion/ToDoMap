@@ -23,8 +23,6 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/list', function(req, res, next) {
-  console.log("Session in newItem getting list of tasks");
-  console.log(req.session);
   // Get all the tasks in the DB
   Task.find()
     .sort([['name', 'ascending']])

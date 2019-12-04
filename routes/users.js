@@ -6,34 +6,53 @@ var auth = require("../middleware/auth");
 // Functions modified from tutorial by Frank Atukunda:
 // https://medium.com/swlh/jwt-authentication-authorization-in-nodejs-express-mongodb-rest-apis-2019-ad14ec818122
 router.post("/login", async (req, res) => {
-  if (req.body.newUser) {
-    console.log("Need to add new user");
-    // TODO: add user to database
+  if (req.body.newUser != undefined) {
+    console.log("Adding new user");
+    // Create a new user
+    try {
+      const user = new User({
+        name: req.body.username,
+        password: req.body.password
+      });
+      await user.save();
+      const token = await user.generateAuthToken();
+      res.status(201);
+      res.redirect("../index.html");
+    } catch (error) {
+      console.log(error);
+      res.status(400);
+      // TODO: add error message on page
+      res.redirect("../login.html");
+    }
   } else {
+    console.log("Trying to log an existing user in");
     //Log in a registered user
     try {
       const name = req.body.username;
       const password = req.body.password;
       const user = await User.findByCredentials(name, password);
       if (!user) {
-          // TODO: add error message on page
-          res.status(401);
-          res.redirect("../login.html");
+        console.log("User doesn't exist");
+        // TODO: add error message on page
+        res.status(401);
+        res.redirect("../login.html");
       }
       const token = await user.generateAuthToken();
-      console.log(token);
+      console.log("Logged in user successfully");
       res.redirect("../index.html");
     } catch (error) {
-      res.status(400)
+      console.log(error);
+      console.log("Invalid password for user");
+      res.status(400);
       // TODO: add error message to page
       res.redirect("../login.html");
     }
   }
 });
 
-router.get('/users/current', auth, async(req, res) => {
+router.get("/users/current", auth, async (req, res) => {
   // View logged in user profile
-  res.send(req.user)
-})
+  res.send(req.user);
+});
 
 module.exports = router;
