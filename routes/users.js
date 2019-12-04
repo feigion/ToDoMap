@@ -5,15 +5,39 @@ var User = require("../models/user");
 
 /* GET users listing. */
 // router.get("/", function(req, res, next) {
-  // res.send("respond with a resource");
+// res.send("respond with a resource");
 // });
 
 router.post("/login", function(req, res, next) {
   if (req.body.newUser != undefined) {
+    // Add the user to the database
     console.log("Adding new user");
-    // TODO: add user to db
+    var user = new User({
+      name: req.body.username,
+      password: hash(req.body.password)
+    });
+    User.find()
+      .where({ name: req.body.username })
+      .exec(function(err, user_list) {
+        if (err) {
+          // return next(err);
+          console.log(err);
+        }
+        if (user_list.length > 0) {
+          console.log("User with that name already exists");
+          // TODO: display an error message
 
-    res.redirect("../index.html");
+          res.redirect("../login.html");
+        } else {
+          user.save(function(err) {
+            if (err) {
+              console.log(err);
+              // return next(err);
+            }
+          });
+          res.redirect("../index.html");
+        }
+      });
   } else {
     // Check if user is in the database and password is valid
     let username = req.body.username;
@@ -21,7 +45,7 @@ router.post("/login", function(req, res, next) {
     console.log(username);
     console.log(password);
     User.find()
-      .where({ username: username })
+      .where({ name: username })
       .exec(function(err, user_list) {
         if (err) {
           // return next(err);
