@@ -2,7 +2,7 @@
 // https://medium.com/swlh/jwt-authentication-authorization-in-nodejs-express-mongodb-rest-apis-2019-ad14ec818122
 
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const User = require("../models/userModel");
 
 const auth = async (req, res, next) => {
   console.log("In auth method");

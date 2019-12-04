@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Task = require('../models/task');
+var Task = require('../models/taskModel');
 
 router.post('/', function(req, res, next) {
   var task = new Task(

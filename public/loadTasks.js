@@ -118,7 +118,7 @@ function initMap() {
   });
   startingLocation(map);
 
-  // Get locations from database by doing a GET request to /newItem/list
+  // Get locations from database by doing a GET request to /tasks/list
   // Modified from example in the class slides
   let req = new XMLHttpRequest();
   req.onreadystatechange = function() {
@@ -172,7 +172,7 @@ function initMap() {
       }
     }
   };
-  req.open("GET", "/newItem/list", true);
+  req.open("GET", "/tasks/list", true);
   req.send();
 }
 // codeAddress("3606 N.E. 43rd Ave Portland, OR 97213");
@@ -230,7 +230,7 @@ function confirmFunction(element, name) {
         }
       }
     };
-    req.open("DELETE", `/newItem/task/${name}`);
+    req.open("DELETE", `/tasks/task/${name}`);
     req.send();
 
     // Remove the item from the task list
