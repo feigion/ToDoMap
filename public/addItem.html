@@ -59,7 +59,6 @@
     <button type="submit" class="btn btn-info btn-lg" name="submitButton" id="submitButton" value="Submit">Submit</button>
     <button type="button" class="btn btn-secondary btn-lg">Nevermind</button>
   </form>
-  <!-- </span> -->
   <script type="text/javascript">
     $('#submitButton').on('click', function() {
       console.log('To Do Item: ' + toDoItem.value);
@@ -76,27 +75,23 @@
 </html>
 
 <script type="text/javascript">
+  var defaultBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(0,0),
+    new google.maps.LatLng(0,0));
 
-var defaultBounds = new google.maps.LatLngBounds(
-  new google.maps.LatLng(0,0),
-  new google.maps.LatLng(0,0));
+  var input = document.getElementById('toDoLocation');
+  var options = {
+    // bounds:
+    // types:
+  };
 
-var input = document.getElementById('toDoLocation');
-var options = {
-  // bounds:
-  // types:
-};
+  autocomplete = new google.maps.places.Autocomplete(input, options);
 
-autocomplete = new google.maps.places.Autocomplete(input, options);
-
-// Listener modified from example here: 
-// https://stackoverflow.com/questions/13478646/google-map-api-get-latitude-and-longitude-from-autocomplete-without-map
-google.maps.event.addListener(autocomplete, 'place_changed', function() {
-  var place = autocomplete.getPlace();
-  document.getElementById("lat").value = place.geometry.location.lat();
-  document.getElementById("lng").value = place.geometry.location.lng();
-})
-</script>
-
-<!-- this seems to be extra but don't want to mess with this page -->
+  // Listener modified from example here: 
+  // https://stackoverflow.com/questions/13478646/google-map-api-get-latitude-and-longitude-from-autocomplete-without-map
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    var place = autocomplete.getPlace();
+    document.getElementById("lat").value = place.geometry.location.lat();
+    document.getElementById("lng").value = place.geometry.location.lng();
+  })
 </script>

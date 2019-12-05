@@ -1,7 +1,6 @@
-
 // view-source:https://andrew.hedges.name/experiments/haversine/ this is where this lat/long distance algorithm was found, (this code is almost identical)
 
-var alphaLabels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var alphaLabels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var labelIndex = 0;
 var Rm = 3961; // mean radius of the earth (miles) at 39 degrees from the equator
 
@@ -26,12 +25,14 @@ function findDistance(origin, destination) {
   dlon = lon2 - lon1;
 
   // how to find distance with lat/longitude
-  a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
+  a =
+    Math.pow(Math.sin(dlat / 2), 2) +
+    Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
   c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); // great circle distance in radians
   dm = c * Rm; // great circle distance in miles
 
   // round the results down to the nearest 1/1000
-  mi = round(dm * 10)/10;
+  mi = round(dm * 10) / 10;
   var fixed = mi.toFixed(1);
 
   return fixed;
@@ -118,66 +119,87 @@ function initMap() {
   });
   startingLocation(map);
 
-  // Get locations from database by doing a GET request to /tasks/list
-  // Modified from example in the class slides
-  let req = new XMLHttpRequest();
-  req.onreadystatechange = function() {
-    if (req.readyState == 4) {
-      if (req.status == 200) {
-        let results = JSON.parse(req.response);
+  const token = sessionStorage.getItem("token");
+  console.log("Logged in user's token:");
+  console.log(token);
 
-        results.forEach(task => {
-          var destination = {
-            lat: task.latitude,
-            lng: task.longitude
-          };
-          task.distance = findDistance(startLocation, destination);
-        });
-        results.sort(function (a, b) {
-         return a.distance - b.distance;
-         });
-        // Testing
-        console.log("Task List from Server: " + results);
-        for (i in results) {
-          task = results[i];
-          console.log("Task: " + task);
-          var contentString = '<div> '+ task.name +' </div>';
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
-          var marker = addPinToMap(map, task.latitude, task.longitude, i % alphaLabels.length);
-          marker.myinfowindow = infowindow;
-          marker.addListener('click', function() {
-            this.myinfowindow.open(map, this);
-          });
-          destination = {
-            lat: task.latitude,
-            lng: task.longitude
-          };
-          // task.distance = findDistance(startLocation, destination);
-          markerDict[task.name] = marker;
-          var ul = document.getElementById("taskList");
-          if (ul != null) {
-            var li = htmlToElement(
-              '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' + task.name + '\')" class="btn btn-dark btn-lg btn-block"><strong>' +
-                alphaLabels[i % alphaLabels.length] + ". " +
-                task.name +
-                "</strong><br> " +
-                task.distance +
-                " miles </button></li>"
-            );
-            ul.appendChild(li);
+  let userReq = new XMLHttpRequest();
+  userReq.onreadystatechange = function() {
+    if (userReq.readyState == 4) {
+      if (userReq.status == 200) {
+        console.log("current user");
+        console.log(userReq.response);
+
+        // Get locations from database by doing a GET request to /tasks/list
+        // Modified from example in the class slides
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+          if (req.readyState == 4) {
+            if (req.status == 200) {
+              let results = JSON.parse(req.response);
+
+              results.forEach(task => {
+                var destination = {
+                  lat: task.latitude,
+                  lng: task.longitude
+                };
+                task.distance = findDistance(startLocation, destination);
+              });
+              results.sort(function(a, b) {
+                return a.distance - b.distance;
+              });
+              // Testing
+              console.log("Task List from Server: " + results);
+              for (i in results) {
+                task = results[i];
+                console.log("Task: " + task);
+                var contentString = "<div> " + task.name + " </div>";
+                var infowindow = new google.maps.InfoWindow({
+                  content: contentString
+                });
+                var marker = addPinToMap(
+                  map,
+                  task.latitude,
+                  task.longitude,
+                  i % alphaLabels.length
+                );
+                marker.myinfowindow = infowindow;
+                marker.addListener("click", function() {
+                  this.myinfowindow.open(map, this);
+                });
+                destination = {
+                  lat: task.latitude,
+                  lng: task.longitude
+                };
+                // task.distance = findDistance(startLocation, destination);
+                markerDict[task.name] = marker;
+                var ul = document.getElementById("taskList");
+                if (ul != null) {
+                  var li = htmlToElement(
+                    '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' +
+                      task.name +
+                      '\')" class="btn btn-dark btn-lg btn-block"><strong>' +
+                      alphaLabels[i % alphaLabels.length] +
+                      ". " +
+                      task.name +
+                      "</strong><br> " +
+                      task.distance +
+                      " miles </button></li>"
+                  );
+                  ul.appendChild(li);
+                }
+              }
+            }
           }
-        }
+        };
+        req.open("GET", `/tasks/list/${userReq.response}`, true);
+        req.send();
       }
     }
   };
-  req.open("GET", "/tasks/list", true);
-  req.send();
+  userReq.open("GET", `/users/${token}`);
+  userReq.send();
 }
-// codeAddress("3606 N.E. 43rd Ave Portland, OR 97213");
-
-
 
 function codeAddress(address) {
   geocoder.geocode(
@@ -212,7 +234,6 @@ function addPinToMap(map, latitude, longitude, i) {
   // console.log(pinLocation);
   return marker;
 }
-
 
 function confirmFunction(element, name) {
   if (confirm(`You are removing ${name} from To-Do list.`)) {

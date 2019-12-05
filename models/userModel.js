@@ -23,6 +23,11 @@ var UserSchema = new Schema({
   ]
 });
 
+UserSchema.statics.findByToken = async(token) => {
+  const user = await User.findOne({ 'tokens.token': token});
+  return user;
+};
+
 // Functions below are from tutorial here by Frank Atukunda:
 // https://medium.com/swlh/jwt-authentication-authorization-in-nodejs-express-mongodb-rest-apis-2019-ad14ec818122
 UserSchema.methods.generateAuthToken = async function() {
@@ -35,6 +40,7 @@ UserSchema.methods.generateAuthToken = async function() {
 };
 
 UserSchema.statics.findByCredentials = async (name, password) => {
+  console.log("Trying to find user: " + name);
   // Search for a user by email and password.
   const user = await User.findOne({ name: name });
   if (!user) {

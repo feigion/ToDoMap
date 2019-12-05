@@ -11,6 +11,7 @@ var TaskSchema = new Schema(
         location: {type: String, required: true},
         latitude: {type: Number, required: true},
         longitude: {type: Number, required: true},
+        username: {type: String} //, required: true}
     }
 );
 

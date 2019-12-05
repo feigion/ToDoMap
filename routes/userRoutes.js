@@ -1,12 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/userModel");
-var auth = require("../middleware/auth");
 
 // Functions modified from tutorial by Frank Atukunda:
 // https://medium.com/swlh/jwt-authentication-authorization-in-nodejs-express-mongodb-rest-apis-2019-ad14ec818122
 router.post("/login", async (req, res) => {
-  if (req.body.newUser != undefined) {
+  if (req.body.newUser === true) {
+    // TODO: check if a user with that name already exists
     console.log("Adding new user");
     // Create a new user
     try {
@@ -17,12 +17,11 @@ router.post("/login", async (req, res) => {
       await user.save();
       const token = await user.generateAuthToken();
       res.status(201);
-      res.redirect("../index.html");
+      res.send(token);
     } catch (error) {
       console.log(error);
       res.status(400);
-      // TODO: add error message on page
-      res.redirect("../login.html");
+      res.send();
     }
   } else {
     console.log("Trying to log an existing user in");
@@ -33,26 +32,32 @@ router.post("/login", async (req, res) => {
       const user = await User.findByCredentials(name, password);
       if (!user) {
         console.log("User doesn't exist");
-        // TODO: add error message on page
         res.status(401);
-        res.redirect("../login.html");
+        res.send();
       }
       const token = await user.generateAuthToken();
       console.log("Logged in user successfully");
-      res.redirect("../index.html");
+      res.send(token);
     } catch (error) {
       console.log(error);
       console.log("Invalid password for user");
       res.status(400);
-      // TODO: add error message to page
-      res.redirect("../login.html");
+      res.send();
     }
   }
 });
 
-router.get("/users/current", auth, async (req, res) => {
-  // View logged in user profile
-  res.send(req.user);
+router.get("/:token", async (req, res) => {
+  console.log("Finding user by token");
+  const user = await User.findByToken(req.params.token);
+  console.log("Result");
+  console.log(user);
+  if (!user) {
+    console.log("User not found for token");
+    res.header = 404;
+    res.send();
+  }
+  res.send(user.name);
 });
 
 module.exports = router;

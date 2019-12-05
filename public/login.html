@@ -20,7 +20,7 @@
   </head>
   <body>
     <h1>Log In</h1>
-    <form class="border border-dark" action="/users/login" id="loginForm" method="post">
+    <form class="border border-dark" action="submitFunction()" id="loginForm">
       <div class="form-group">
         <label for="username">Username</label>
         <input id="username" name="username" class="form-control">
@@ -33,7 +33,34 @@
         <label class="form-check-label" for="completeCheck">New User</label>
       </div>
       <br>
-      <button type="submit" class="btn btn-info btn-lg" name="submitButton" id="submitButton" value="Submit">Submit</button>
+      <button type="button" class="btn btn-info btn-lg" name="submitButton" id="submitButton" value="Submit">Submit</button>
     </form>
+    <script>
+      document.getElementById("submitButton").onclick = function() {
+        const name = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const newUser = document.getElementById("newUser").checked;
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+          if (req.readyState == 4) {
+            if (req.status == 201 || req.status == 200) {
+              console.log("response: " + req.response);
+              console.log(req.response);
+              // https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+              sessionStorage.clear();
+              sessionStorage.setItem("token", req.response);
+              // https://developer.mozilla.org/en-US/docs/Web/API/Location/assign
+              window.location.assign("index.html");
+            } else {
+              // TODO: display message to user
+              console.log("Error logging in");
+            }
+          }
+        }
+        req.open("POST", "/users/login");
+        req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        req.send(JSON.stringify({username: name, password: password, newUser: newUser }));
+      }
+    </script>
   </body>
 </html>
