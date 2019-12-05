@@ -25,6 +25,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Found how to start with a file other than index.html here:
+// https://stackoverflow.com/questions/25166726/express-serves-index-html-even-when-my-routing-is-to-a-different-file
+app.get('/', function(req, res, next) {
+  res.redirect("login.html");
+})
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
