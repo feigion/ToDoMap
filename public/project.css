@@ -1,32 +1,47 @@
-body {
-  background-color: #394A6D;
+a {
+  color: white;
+}
 
-  /* background: */
-  /* linear-gradient(rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)),  */
-      /* url("images/background2.jpg"); */
-      /* background-size: cover; */
+a:hover {
+  color: lightblue;
+}
+
+#addButton, #logOutButton {
+  margin-left: 25px;
+  margin-top: 25px;
+}
+
+.btn-dark {
+  background: rgb(18,58,100);
+  border: 0px;
+}
+
+body {
+  /* background-color: #394A6D; */
+  background: url("images/background5.jpg");
+  background-size: cover;
 }
 
 form {
-/* width: 300px;
-height: 200px; */
-padding-left: 25%;
-padding-right: 25%;
-padding-top: 25%;
-color: #3fc1c9;
-
+  /* width: 300px; */
+  /* height: 200px; */
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-top: 25%;
+  color: black;
 }
 
-h1{
+h1 {
   text-align: center;
-  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
+  font-family: "Josefin Sans", "Oxygen", sans-serif;
   padding-top: 10px;
-  color: #fc5185;
+  /* color: #fc5185; */
+  color: white;
+  outline-color: black;
   /* font-size: 24px; */
 }
 
-h3{
+h3 {
   color: #3c9d9b;
 }
 
@@ -35,47 +50,62 @@ h3{
     display: none;
   }
 
-  #header {
-    font-size: 50px;
-    margin-bottom: 30px;
+  #smallMapLink {
+    display: none;
   }
 
-  #addItem{
-  display: none;
+  #header {
+    font-size: 50px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  #addItem {
+    display: none;
   }
 
   .list-group {
-    height: 475px;
+    height: 600px;
   }
 }
 
 @media (max-width: 576px) {
+  #addButton, #logOutButton {
+    display: none;
+  }
+
+  .headerRow {
+    display: none;
+  }
+
   .largemap {
     display: none;
   }
+
   #header {
     display: none;
   }
+
   .list-group {
     max-height: 500px;
   }
 }
 
 .largemap {
-  height: auto;
+  height: 600px;
   background-color: lightgray;
 }
 
-.list-group-item{
+.list-group-item {
   background-color: #3c9d9b;
 }
 
-.list-group{
-    width: 100rem;
-    background-color: #3c9d9b;
-    /* margin-bottom: 10px; */
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
+.list-group {
+  width: 100rem;
+  background-color: #3c9d9b;
+  /* margin-bottom: 10px; */
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .smallmap {
@@ -86,29 +116,20 @@ h3{
   margin: 50px 50px 20px;
   /* height: 100%; */
 }
-#add{
-  font-size: 40px;
-  /* text-align: center; */
-  color: #fc5185;
-  font-family: cursive;
-  /* display: inline-block; */
-  margin-left: 30%;
-}
-#mapAndList{}
 
 #sidebar {
   min-height: 200px;
-  max-height: 500px;
+  max-height: 600px;
   background-color: gray;
 }
 
-#titleAddItem{
-  font-family: 'Josefin Sans', 'Oxygen', sans-serif;
+#titleAddItem {
+  font-family: "Josefin Sans", "Oxygen", sans-serif;
   color: #fc5185;
 }
-#toDoList{
-  margin: 10px 10px 10px;
 
+#toDoList {
+  margin: 10px 10px 10px;
 }
 
 /* .form-group, .form-check{

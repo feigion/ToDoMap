@@ -113,7 +113,7 @@ function initMap() {
   // finding streets
   geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 10,
+    zoom: 12,
     center: startLocation
   });
   startingLocation(map);
@@ -159,7 +159,7 @@ function initMap() {
           var ul = document.getElementById("taskList");
           if (ul != null) {
             var li = htmlToElement(
-              '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' + task.name + '\')" class="btn btn-secondary btn-lg btn-block"><strong>' +
+              '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' + task.name + '\')" class="btn btn-dark btn-lg btn-block"><strong>' +
                 alphaLabels[i % alphaLabels.length] + ". " +
                 task.name +
                 "</strong><br> " +

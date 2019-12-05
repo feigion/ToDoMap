@@ -22,7 +22,6 @@
     <title>Tasket</title>
   </head>
   <body>
-    <h1 id="header">To-Do Map</h1>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items">
         <span class="navbar-toggler-icon"></span>
@@ -35,24 +34,38 @@
           <li class="nav-item-active">
             <a href="index.html">List</a>
           </li>
+          <li class="nav-item">
+            <a href="addItem.html">Add new task</a>
+          </li>
+          <li class="nav-item">
+            <a href="">Log out</a>
+          </li>
         </ul>
       </div>
     </nav>
     <div class="container" id="mapAndList">
+      <div class="row headerRow">
+        <div class="col-md-8">
+          <h1 id="header">To-Do Map</h1>
+        </div>
+        <div class="col-md-4" id="buttons">
+          <button class="btn btn-dark btn-lg" id="addButton">
+            <a href="addItem.html">Add new task</a>
+          </button>
+          <button class="btn btn-dark btn-lg" id="logOutButton">
+            <a href="">Log out</a>
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-8 largemap" id="map">Large map</div>
         <div class="col-md-4" id="sidebar">
-          <!-- <div class="row" id="add"> -->
-          <!-- <a href="addItem.html">Add to list </a> </div> -->
-          <!-- <div class="row" id="addItem"> <a href="addItem.html">Add to list </a> </div> -->
           <div class="row">
             <ul class="list-group" id="taskList">
           </div>
         </div>
       </div>
     </div>
-    <div class="row" id="add">
-    <a href="addItem.html">Something else to do? </a> </div>
     <script src="./loadTasks.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript"></script>
   </body>
