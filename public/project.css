@@ -1,3 +1,7 @@
+.nav-item-active > a {
+  color: #3c9d9b; 
+}
+
 a {
   color: white;
 }
