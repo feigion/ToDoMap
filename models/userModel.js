@@ -60,7 +60,7 @@ UserSchema.statics.userExists = async (name) => {
 UserSchema.methods.generateAuthToken = async function() {
   // Generate an auth token for the user
   const user = this;
-  const token = jwt.sign({ _id: user._id }, "test"); //process.env.JWT_KEY)
+  const token = jwt.sign({ _id: user._id }, "OurAwesomeFullStackProject");
   user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;
