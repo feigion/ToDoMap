@@ -35,7 +35,23 @@ UserSchema.statics.findByToken = async(token) => {
   return user;
 };
 
-// Functions below are from tutorial here by Frank Atukunda:
+/**
+ * Checks if a user with the name passed in as an argument already exists in the database
+ */
+UserSchema.statics.userExists = async (name) => {
+  console.log("Trying to find user: " + name);
+  // Search for a user by name
+  const user = await User.findOne({ name: name });
+  console.log("user found:");
+  console.log(user);
+  if (!user) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+// Functions below are modified from the tutorial here by Frank Atukunda:
 // https://medium.com/swlh/jwt-authentication-authorization-in-nodejs-express-mongodb-rest-apis-2019-ad14ec818122
 
 /**

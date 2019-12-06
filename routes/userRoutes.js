@@ -14,10 +14,18 @@ router.post("/login", async (req, res) => {
     console.log("Adding new user");
     // Create a new user
     try {
+      // Check if user with that name already exists
+      const duplicate = await User.userExists(req.body.username);
+      if (duplicate) {
+        throw new Error("User already exists");
+      }
+
+      // Create the new user
       const user = new User({
         name: req.body.username,
         password: req.body.password
       });
+
       // Save the new user to the database
       await user.save();
 
