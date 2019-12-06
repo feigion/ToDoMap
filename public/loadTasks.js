@@ -120,85 +120,86 @@ function initMap() {
   startingLocation(map);
 
   const token = sessionStorage.getItem("token");
-  console.log("Logged in user's token:");
-  console.log(token);
+  if (token != null) {
+    let userReq = new XMLHttpRequest();
+    userReq.onreadystatechange = function() {
+      if (userReq.readyState == 4) {
+        if (userReq.status == 200) {
+          console.log("current user");
+          console.log(userReq.response);
 
-  let userReq = new XMLHttpRequest();
-  userReq.onreadystatechange = function() {
-    if (userReq.readyState == 4) {
-      if (userReq.status == 200) {
-        console.log("current user");
-        console.log(userReq.response);
+          // Get locations from database by doing a GET request to /tasks/list
+          // Modified from example in the class slides
+          let req = new XMLHttpRequest();
+          req.onreadystatechange = function() {
+            if (req.readyState == 4) {
+              if (req.status == 200) {
+                let results = JSON.parse(req.response);
 
-        // Get locations from database by doing a GET request to /tasks/list
-        // Modified from example in the class slides
-        let req = new XMLHttpRequest();
-        req.onreadystatechange = function() {
-          if (req.readyState == 4) {
-            if (req.status == 200) {
-              let results = JSON.parse(req.response);
-
-              results.forEach(task => {
-                var destination = {
-                  lat: task.latitude,
-                  lng: task.longitude
-                };
-                task.distance = findDistance(startLocation, destination);
-              });
-              results.sort(function(a, b) {
-                return a.distance - b.distance;
-              });
-              // Testing
-              console.log("Task List from Server: " + results);
-              for (i in results) {
-                task = results[i];
-                console.log("Task: " + task);
-                var contentString = "<div> " + task.name + " </div>";
-                var infowindow = new google.maps.InfoWindow({
-                  content: contentString
+                results.forEach(task => {
+                  var destination = {
+                    lat: task.latitude,
+                    lng: task.longitude
+                  };
+                  task.distance = findDistance(startLocation, destination);
                 });
-                var marker = addPinToMap(
-                  map,
-                  task.latitude,
-                  task.longitude,
-                  i % alphaLabels.length
-                );
-                marker.myinfowindow = infowindow;
-                marker.addListener("click", function() {
-                  this.myinfowindow.open(map, this);
+                results.sort(function(a, b) {
+                  return a.distance - b.distance;
                 });
-                destination = {
-                  lat: task.latitude,
-                  lng: task.longitude
-                };
-                // task.distance = findDistance(startLocation, destination);
-                markerDict[task.name] = marker;
-                var ul = document.getElementById("taskList");
-                if (ul != null) {
-                  var li = htmlToElement(
-                    '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' +
-                      task.name +
-                      '\')" class="btn btn-dark btn-lg btn-block"><strong>' +
-                      alphaLabels[i % alphaLabels.length] +
-                      ". " +
-                      task.name +
-                      "</strong><br> " +
-                      task.distance +
-                      " miles </button></li>"
+                // Testing
+                console.log("Task List from Server: " + results);
+                for (i in results) {
+                  task = results[i];
+                  console.log("Task: " + task);
+                  var contentString = "<div> " + task.name + " </div>";
+                  var infowindow = new google.maps.InfoWindow({
+                    content: contentString
+                  });
+                  var marker = addPinToMap(
+                    map,
+                    task.latitude,
+                    task.longitude,
+                    i % alphaLabels.length
                   );
-                  ul.appendChild(li);
+                  marker.myinfowindow = infowindow;
+                  marker.addListener("click", function() {
+                    this.myinfowindow.open(map, this);
+                  });
+                  destination = {
+                    lat: task.latitude,
+                    lng: task.longitude
+                  };
+                  // task.distance = findDistance(startLocation, destination);
+                  markerDict[task.name] = marker;
+                  var ul = document.getElementById("taskList");
+                  if (ul != null) {
+                    var li = htmlToElement(
+                      '<li class="list-group-item"><button onclick="confirmFunction($(this),task.name)"' +
+                        'class="btn btn-dark btn-lg btn-block"><strong>' +
+                        alphaLabels[i % alphaLabels.length] +
+                        ". " +
+                        task.name +
+                        "</strong><br> " +
+                        task.distance +
+                        " miles </button></li>"
+                    );
+                    ul.appendChild(li);
+                  }
                 }
               }
             }
-          }
-        };
-        req.open("GET", `/tasks/list/${userReq.response}`, true);
-        req.send();
+          };
+          req.open("GET", `/tasks/list/${userReq.response}`, true);
+          req.send();
+        }
       }
-    }
-  };
-  userReq.open("GET", `/users/${token}`);
-  userReq.send();
+    };
+    userReq.open("GET", `/users/${token}`);
+    userReq.send();
+  } else {
+    console.log("No user logged in");
+    window.location.assign("login.html");
+  }
 }
 
 function codeAddress(address) {
@@ -225,7 +226,6 @@ function addPinToMap(map, latitude, longitude, i) {
     lat: latitude,
     lng: longitude
   };
-  // TODO: need to call the locations from the DB
   var marker = new google.maps.Marker({
     position: pinLocation,
     label: alphaLabels[i],

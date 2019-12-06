@@ -53,7 +53,7 @@
             <a href="addItem.html"><strong>Add new task</strong></a>
           </button>
           <button class="btn btn-dark btn-lg" id="logOutButton">
-            <a href=""><strong>Log out</strong></a>
+            <strong>Log out</strong>
           </button>
         </div>
       </div>
@@ -67,6 +67,24 @@
       </div>
     </div>
     <script src="./loadTasks.js"></script>
+    <script>
+      $("#logOutButton").on("click", function() {
+        console.log("Logout button clicked");
+        let req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+          if (req.readyState == 4) {
+            if (req.status == 200) {
+              sessionStorage.clear();
+              window.location.assign("login.html");
+            }
+          }
+        }
+        req.open("DELETE", "/users/logout");
+        console.log("Current token: " + sessionStorage.getItem("token"));
+        req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        req.send(JSON.stringify({token: sessionStorage.getItem("token")}));
+      });
+    </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaH1SelqqL_i9CzesP58hYcHvbhxzXG5o&callback=initMap" type="text/javascript"></script>
   </body>
 </html>

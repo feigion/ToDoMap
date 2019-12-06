@@ -50,14 +50,29 @@ router.post("/login", async (req, res) => {
 router.get("/:token", async (req, res) => {
   console.log("Finding user by token");
   const user = await User.findByToken(req.params.token);
-  console.log("Result");
-  console.log(user);
+  // console.log("Result");
+  // console.log(user);
   if (!user) {
     console.log("User not found for token");
     res.header = 404;
     res.send();
   }
   res.send(user.name);
+});
+
+router.delete("/logout", async (req, res) => {
+  const user = await User.findByToken(req.body.token);
+  try {
+    user.tokens = user.tokens.filter(token => {
+      return token.token != req.body.token;
+    });
+    await user.save();
+    console.log("User updated successfully");
+    res.status(200);
+    res.send();
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 module.exports = router;
