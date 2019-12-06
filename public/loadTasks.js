@@ -51,7 +51,8 @@ function round(x) {
 
 var map = null;
 var geocoder = null;
-// // This is used for default start location
+
+// This is used for default start location
 var startLocation = {
   lat: 45.5051,
   lng: -122.675
@@ -110,6 +111,10 @@ function startingLocation(map) {
   }
 }
 
+/**
+ * Initializes the map and add's the user's current location.  Loads all tasks for the user 
+ * from the database, then adds each one to the map and the list of tasks.
+ */
 function initMap() {
   // finding streets
   geocoder = new google.maps.Geocoder();
@@ -119,8 +124,10 @@ function initMap() {
   });
   startingLocation(map);
 
+  // Get the token for the user who is currently logged in
   const token = sessionStorage.getItem("token");
   if (token != null) {
+    // Get the name of the user by sending a GET request using the token
     let userReq = new XMLHttpRequest();
     userReq.onreadystatechange = function() {
       if (userReq.readyState == 4) {
@@ -136,6 +143,7 @@ function initMap() {
               if (req.status == 200) {
                 let results = JSON.parse(req.response);
 
+                // Calculate the distance away from the user's current location for each task
                 results.forEach(task => {
                   var destination = {
                     lat: task.latitude,
@@ -143,11 +151,15 @@ function initMap() {
                   };
                   task.distance = findDistance(startLocation, destination);
                 });
+
+                // Sort the tasks based on distance so they can be displayed in order
                 results.sort(function(a, b) {
                   return a.distance - b.distance;
                 });
                 // Testing
                 console.log("Task List from Server: " + results);
+
+                // Add each task to the map and list
                 for (i in results) {
                   task = results[i];
                   console.log("Task: " + task);
@@ -170,18 +182,20 @@ function initMap() {
                     lng: task.longitude
                   };
                   // task.distance = findDistance(startLocation, destination);
+
+                  // Add the marker to the dictionary so it can be accessed to remove the item from the map
                   markerDict[task.name] = marker;
+
+                  // Add a list item to the task list
                   var ul = document.getElementById("taskList");
                   if (ul != null) {
                     var li = htmlToElement(
-                      '<li class="list-group-item"><button onclick="confirmFunction($(this),task.name)"' +
-                        'class="btn btn-dark btn-lg btn-block"><strong>' +
-                        alphaLabels[i % alphaLabels.length] +
-                        ". " +
-                        task.name +
-                        "</strong><br> " +
-                        task.distance +
-                        " miles </button></li>"
+                      '<li class="list-group-item"><button onclick="confirmFunction($(this), \'' + task.name + '\')" class="btn btn-dark btn-lg btn-block"><strong>' +
+                      alphaLabels[i % alphaLabels.length] + ". " +
+                      task.name +
+                      "</strong><br> " +
+                      task.distance +
+                      " miles </button></li>"
                     );
                     ul.appendChild(li);
                   }
@@ -197,6 +211,7 @@ function initMap() {
     userReq.open("GET", `/users/${token}`);
     userReq.send();
   } else {
+    // If no user is logged in, redirect to the login page
     console.log("No user logged in");
     window.location.assign("login.html");
   }
@@ -221,6 +236,13 @@ function codeAddress(address) {
   );
 }
 
+/**
+ * Adds a pin for a task to the map
+ * @param {*} map         map the task should be added to
+ * @param {*} latitude    latitude of the address
+ * @param {*} longitude   longitude of the address
+ * @param {*} i           index used to determine which alpha label to use on the pin
+ */
 function addPinToMap(map, latitude, longitude, i) {
   var pinLocation = {
     lat: latitude,
@@ -235,14 +257,27 @@ function addPinToMap(map, latitude, longitude, i) {
   return marker;
 }
 
+/**
+ * Called when the user clicks on a task on the list
+ * If the user confirms the task should be removed, delete it from the map and list
+ * @param {*} element   HTML task list element
+ * @param {*} name      name of the task (used to remove it from the map and database)
+ */
 function confirmFunction(element, name) {
+  console.log(element);
+  console.log(name);
   if (confirm(`You are removing ${name} from To-Do list.`)) {
     // Remove the marker for the task from the map
-    markerDict[name].setMap(null); // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
+    // Found how to remove from the map here:
+    // https://developers-dot-devsite-v2-prod.appspot.com/maps/documentation/javascript/examples/marker-remove
+    markerDict[name].setMap(null);     
 
-    delete markerDict[name]; // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
+    // Delete the task from the dictionary of current markers
+    // Found how to delete the item here:
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete
+    delete markerDict[name]; 
 
-    // Remove the task from the database
+    // Remove the task from the database by sending a DELETE request
     let req = new XMLHttpRequest();
     req.onreadystatechange = function() {
       if (req.readyState == 4) {
@@ -255,16 +290,24 @@ function confirmFunction(element, name) {
     req.send();
 
     // Remove the item from the task list
+    // Found how to access the parent item here: https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
     var ul = document.getElementById("taskList");
-    ul.removeChild(element[0].parentElement); //https://developer.mozilla.org/en-US/docs/Web/API/Node/parentElement
+    ul.removeChild(element[0].parentElement);   
   } else {
     // do nothing
   }
 }
 
+// If the user clicks the log out button, call the logOut() function
 $("#logOutButton").on("click", logOut);
+
+// If the user clicks the log out menu option, call the logOut() function
 $("#logOutMenu").on("click", logOut);
 
+/**
+ * Logs out a user by sending a DELETE request to remove the user's token from the database
+ * and clearing the session storage to remove the token. Then redirects to the login page
+ */
 function logOut() {
   console.log("Logout button clicked");
   let req = new XMLHttpRequest();
@@ -277,7 +320,6 @@ function logOut() {
     }
   };
   req.open("DELETE", "/users/logout");
-  console.log("Current token: " + sessionStorage.getItem("token"));
   req.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
   req.send(JSON.stringify({ token: sessionStorage.getItem("token") }));
 }

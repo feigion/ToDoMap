@@ -3,7 +3,12 @@ var router = express.Router();
 var Task = require('../models/taskModel');
 var User = require('../models/userModel');
 
+/**
+ * Adds a new task to the database, using the information in the request body
+ */
 router.post('/', async (req, res, next) => {
+  // Find the user based on the token in the body in order to get the name
+  // of the user to include in the database for the task
   const user = await User.findByToken(req.body.token);
   var task = new Task(
         { 
@@ -14,17 +19,20 @@ router.post('/', async (req, res, next) => {
             username: user.name
         }
     )
+  // Save the new task to the database
   task.save(function (err) {
     if (err) { 
       console.log(err);
       // return next(err); 
     }
   })
-  console.log(task);
 
   res.redirect("index.html");
 });
 
+/**
+ *  Gets all tasks that are in the database (for all users)
+ */ 
 router.get('/list', function(req, res, next) {
   console.log("Getting all tasks");
   // Get all the tasks in the DB
@@ -37,6 +45,9 @@ router.get('/list', function(req, res, next) {
     });
 });
 
+/**
+ * Gets all tasks in the database for a particular user
+ */
 router.get('/list/:username', function(req, res, next) {
   console.log("Getting all tasks for user " + req.params.username);
   Task.find()
@@ -49,6 +60,9 @@ router.get('/list/:username', function(req, res, next) {
     });
 });
 
+/**
+ * Gets the task from the database with the indicated name
+ */
 router.get('/task/:name', function(req, res, next) {
   let taskName = req.params.name;
   console.log("Getting task " + taskName);
@@ -65,6 +79,9 @@ router.get('/task/:name', function(req, res, next) {
     });
 });
 
+/**
+ * Removes a task from the database (when the user has completed it)
+ */
 router.delete('/task/:name', function(req, res, next) {
   let taskName = req.params.name;
   Task.findOneAndDelete()
@@ -75,26 +92,6 @@ router.delete('/task/:name', function(req, res, next) {
         console.log(err);
       }
       res.send();
-    });
-});
-
-router.put('/update', function(req, res, next) {
-  console.log("In update for " + req.body.name);
-  Task.find()
-    .where({name: req.body.name})  // Used https://mongoosejs.com/docs/api/query.html
-    .exec(function(err, task_list) {
-      if (err) {
-        // return next(err); 
-        console.log(err);
-      }
-      task = task_list[0];  // TODO: handle duplicate names
-      console.log("Found: " + task.name);
-      task.markerIndex = req.body.markerIndex;
-      task.save(function(err) {
-        if (err) {
-          console.log(err);
-        }
-      });
     });
 });
 
