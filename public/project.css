@@ -1,8 +1,4 @@
-.nav-item-active > a {
-  color: #3c9d9b; 
-}
-
-a {
+a, #logOutMenu {
   color: white;
 }
 
@@ -110,6 +106,15 @@ h3 {
   /* margin-bottom: 10px; */
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+#logOutMenu:hover {
+  color: lightblue;
+  text-decoration-line: underline
+}
+
+.nav-item-active > a {
+  color: #3c9d9b; 
 }
 
 .smallmap {

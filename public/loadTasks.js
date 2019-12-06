@@ -261,3 +261,23 @@ function confirmFunction(element, name) {
     // do nothing
   }
 }
+
+$("#logOutButton").on("click", logOut);
+$("#logOutMenu").on("click", logOut);
+
+function logOut() {
+  console.log("Logout button clicked");
+  let req = new XMLHttpRequest();
+  req.onreadystatechange = function() {
+    if (req.readyState == 4) {
+      if (req.status == 200) {
+        sessionStorage.clear();
+        window.location.assign("login.html");
+      }
+    }
+  };
+  req.open("DELETE", "/users/logout");
+  console.log("Current token: " + sessionStorage.getItem("token"));
+  req.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+  req.send(JSON.stringify({ token: sessionStorage.getItem("token") }));
+}
