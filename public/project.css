@@ -45,6 +45,12 @@ h3 {
   color: #3c9d9b;
 }
 
+#homeButton {
+  margin-top: 10px;
+  margin-left: 50px;
+  background-color: #3c9d9b;
+}
+
 @media (min-width: 576px) {
   .navbar {
     display: none;
@@ -83,6 +89,10 @@ h3 {
   }
 
   #header {
+    display: none;
+  }
+
+  #homeButton {
     display: none;
   }
 
