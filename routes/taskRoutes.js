@@ -1,17 +1,17 @@
 var express = require('express');
 var router = express.Router();
 var Task = require('../models/taskModel');
+var User = require('../models/userModel');
 
-router.post('/', function(req, res, next) {
-  console.log(req.body);
-  // TODO: get username
+router.post('/', async (req, res, next) => {
+  const user = await User.findByToken(req.body.token);
   var task = new Task(
         { 
-            name: req.body.toDoItem,
-            location: req.body.toDoLocation,
-            latitude: req.body.lat,
-            longitude: req.body.lng,
-            username: 'admin'
+            name: req.body.name,
+            location: req.body.location,
+            latitude: req.body.latitude,
+            longitude: req.body.longitude,
+            username: user.name
         }
     )
   task.save(function (err) {

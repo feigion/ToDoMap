@@ -48,7 +48,7 @@
       </ul>
     </div>
   </nav>
-  <form class="border border-dark" action="/tasks" id="newItem" method="post">
+  <form class="border border-dark" id="newItem">
     <div class="form-group">
       <label for="toDoItem">What I need to do is...</label>
       <input type="text" class="form-control" id="toDoItem" name="toDoItem" placeholder="Enter Task Here">
@@ -62,7 +62,7 @@
       <input type="hidden" name="lng" id="lng">
     </div>
 
-    <button type="submit" class="btn btn-info btn-lg" name="submitButton" id="submitButton" value="Submit">Submit</button>
+    <button type="button" class="btn btn-info btn-lg" name="submitButton" id="submitButton" value="Submit">Submit</button>
     <button type="button" class="btn btn-secondary btn-lg">Nevermind</button>
   </form>
   <script type="text/javascript">
@@ -75,6 +75,37 @@
         toDoItem.value = "";
         toDoLocation.value = "";
       });
+  </script>
+  <script>
+    document.getElementById("submitButton").onclick = function() {
+      const item = document.getElementById("toDoItem").value;
+      const location = document.getElementById("toDoLocation").value;
+      const longitude = document.getElementById("lng").value;
+      const latitude = document.getElementById("lat").value;
+      const token = sessionStorage.getItem("token");
+      console.log("Token in addItem.html");
+      console.log(token);
+      let req = new XMLHttpRequest();
+      req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+          if (req.status == 201 || req.status == 200) {
+            console.log("response: " + req.response);
+            console.log(req.response);
+            // https://developer.mozilla.org/en-US/docs/Web/API/Location/assign
+            window.location.assign("index.html");
+          } else {
+            // TODO: display message to user
+            console.log("Error adding item");
+          }
+        }
+      }
+      req.open("POST", "/tasks");
+      req.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      console.log("body before sending");
+      const body = JSON.stringify({name: item, location: location, longitude: longitude, latitude: latitude, token: token })
+      console.log(body);
+      req.send(body);
+    }
   </script>
 </body>
 <!-- on focus in or out can do ajax call -->
