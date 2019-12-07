@@ -10,6 +10,20 @@ to do things on the list based on location.
 - Mongo database that stores tasks
 - User accounts
 
+## Technologies Used:
+- HTML
+- CSS
+- Bootstrap
+- Javascript
+- Node JS
+- Express JS
+- Mongo DB
+- Google Fonts
+
+### Images:
+- Icons made by Freepik from www.flaticon.com
+- Background photo by Hubert Neufeld on Unsplash
+
 ### npm modules used:
 - @google/maps
 - bcryptjs
